@@ -43,7 +43,8 @@ export default function TransactionForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-2xl shadow-md mt-8 space-y-4"
+      className="bg-white dark:bg-gray-700 dark:text-white
+ p-6 rounded-2xl shadow-md mt-8 space-y-4"
     >
       <h2 className="text-xl font-semibold">Add Transaction</h2>
 
