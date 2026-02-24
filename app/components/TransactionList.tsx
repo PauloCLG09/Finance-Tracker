@@ -1,5 +1,5 @@
 "use client";
-import { Transaction } from "@/.next/types/transaction";
+import { Transaction } from "../types/transaction"; 
 import { motion, AnimatePresence } from "framer-motion";
 
 interface TransactionListProps {

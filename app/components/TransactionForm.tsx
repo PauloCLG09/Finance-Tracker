@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Transaction } from "@/.next/types/transaction";
+import { Transaction } from "../types/transaction";
 
 interface TransactionFormProps {
   onAddTransaction: (transaction: {

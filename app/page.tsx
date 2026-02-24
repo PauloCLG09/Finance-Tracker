@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from "react";
 import DashboardCard from "./components/DashboardCard";
 import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
-import { Transaction } from "@/.next/types/transaction";
+import { Transaction } from "./types/transaction"; 
 import Charts from "./components/Charts";
 
 
@@ -71,6 +71,32 @@ export default function Home() {
     setTransactions((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const exportToCSV = () => {
+    if (transactions.length === 0) return;
+
+    const headers = ["Description", "Type", "Amount"];
+    const rows = transactions.map((t) => [
+      t.description,
+      t.type,
+      t.amount,
+    ]);
+
+    const csvContent =
+      [headers, ...rows]
+        .map((row) => row.join(","))
+        .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "transactions.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 transition-colors duration-300">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -89,12 +115,22 @@ export default function Home() {
           >
             {darkMode ? "☀️ Light" : "🌙 Dark"}
           </button>
+          <button
+            onClick={exportToCSV}
+            className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+          >
+            Export CSV
+          </button>
         </header>
 
         {/* Dashboard Cards */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-gray-800 dark:text-white
- rounded-2xl shadow-lg p-6">
+          <div className="relative">
+            {balance < 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full animate-pulse">
+                Over Budget
+              </span>
+            )}
             <DashboardCard title="Balance" amount={balance} />
           </div>
 

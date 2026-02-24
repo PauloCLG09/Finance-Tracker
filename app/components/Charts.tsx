@@ -1,7 +1,7 @@
 "use client";
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from "recharts";
-import { Transaction } from "@/.next/types/transaction";
+import { Transaction } from "../types/transaction"; 
 
 interface ChartsProps {
   transactions: Transaction[];
